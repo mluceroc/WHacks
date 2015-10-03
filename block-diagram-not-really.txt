@@ -1,0 +1,17 @@
+1. Recieve request containing A and B
+2. Populate Graph
+    i.  Find *(distance/cost)* between A and B
+    ii. Find *(distance/cost)* from A to all Tnodes
+    iii.Find *(distance/cost)* from all Tnodes to B
+    iv. Assign direction to all inter - Tnode edges (ITEs)
+        a. Make list of all Tnodes ranked by A *(distance)*
+        b. Go through this list, set all ITEs containing it and another node in this 
+            list to from 1 to 2, then remove it from the list
+3. Find all paths on the graph that cost less than *uber*
+    i. Recursive alg: to start, node =  A. After, node is next pathMarker in queue (?)
+        (base case): node = b
+        (else case): 
+            a. get all of node's edges
+            b. for each edge
+                if ( pathCost + edge.cost > uberCost ) --> quit
+                else --> 
