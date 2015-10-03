@@ -11,7 +11,7 @@
     i. Recursive alg: to start, path =  {A}. After, node is next pathMarker in queue (?)
         (base case): node == B --> add path to list of final paths
         (else case): 
-            a. get all of node's edges
+            a. get all of node's outbound edges
             b. for each edge
                 if ( pathCost + edge.cost > uberCost ) --> quit
                 else --> add a new path to the queue that is current path + edge
