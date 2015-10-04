@@ -1,14 +1,25 @@
+<!--SOURCES: (1) stackoverflow - "How retrieve latitude and longitude via Google Maps API?"-->
+
+<!--Response from RedBlueThing  answered May 5 '10 at 3:36:-->
+<!--http://stackoverflow.com/questions/2770421/how-retrieve-latitude-and-longitude-via-google-maps-api--> 
+
+<!--(2) w3schools-->
+<!--Used this source to relearn how to extract from textfields in javascript-->
+<!--http://www.w3schools.com/jsref/prop_text_value.asp-->
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
 <title>Location</title>
-<link rel="stylesheet" type="text/css" href="Style.css">
+<link rel="stylesheet" type="text/css" href="Style.css"/>
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'/>
 </head>
 
 <body>
 
-<h1><a href="Homepage.html">Prev</a> Locations <a href="OptimizedPerformance.html">Next</a></h1>
+<h1>LOCATIONS</h1>
 
     <div id="floating-panel">
       <input id="start" type="textbox" value="Sydney, NSW">
@@ -18,17 +29,62 @@
     <div id="map"></div>
     <script>
 function initMap() {
+
 console.log("start initMap()");
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
     center: {lat: -34.397, lng: 150.644}
   });
+  
   console.log("map created");
   var geocoder = new google.maps.Geocoder();
 
   document.getElementById('submit').addEventListener('click', function() {
     geocodeAddress(geocoder, map);
   });
+   
+  //store addresses of start and endpoints
+  
+  var startPT = document.getElementById("start").value; //Used information from Source 2
+  var endPT = document.getElementById("end").value;
+  
+  
+  //For compiling purposes, I am giving each array these temporary values
+  var startLAT = startPT; 
+  var startLNG = startPT;
+  
+  var endLAT = endPT;
+  var endLNG = endPT;
+  
+  
+  //The next two functions store the values of lat/lng for our start and end point 
+  geocoder.getLatLng(startPT, function(point){ //Modified from Source1
+         startLAT = point.y;
+         startLNG = point.x;  
+
+  }); 
+    
+  geocoder.getLatLng(endPT, function(point){ //Modified from Source1
+         endLAT = point.y;
+         endLNG = point.x;  
+
+  });
+  
+  var flightPlanCoordinates = [
+    {lat: startLAT, lng: startLNG},
+    {lat: endLAT, lng: endLNG}
+
+  ];
+  
+  var flightPath = new google.maps.Polyline({
+    path: flightPlanCoordinates,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
+
+  flightPath.setMap(map);
   
 }
 
@@ -37,8 +93,8 @@ function geocodeAddress(geocoder, resultsMap) {
 
     var end = document.getElementById('end').value;
 
-  geocodeAddressHelper(geocoder, resultsMap, start);
-  geocodeAddressHelper(geocoder, resultsMap, end); 
+  geocodeAddressHelper(geocoder, resultsMap, start); //change to start 
+  geocodeAddressHelper(geocoder, resultsMap, end); //change to end
 }
 
 function geocodeAddressHelper (geocoder, resultsMap, address) {

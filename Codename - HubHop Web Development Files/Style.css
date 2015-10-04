@@ -1,6 +1,25 @@
-body {
+/*Sources: http://www.w3schools.com/tags/ref_colorpicker.asp*/
+
+
+body{
 
 text-align: center;
+background-color: #0000CC;
+color: white;  
+font-size: 150%; 
+font-family: 'Ubuntu', sans-serif;
+
+}
+
+#Homepage h1{
+
+margin-top: 100px; 
+
+}
+
+#Homepage p{
+
+margin: 10px; 
 
 }
 
@@ -8,5 +27,9 @@ text-align: center;
 
 height: 800px; 
 
+}
+
+#floating-panel {
 
 }
+
