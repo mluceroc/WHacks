@@ -4,17 +4,22 @@ from path import Path
 from location import Location
 import Queue
 from random import randint
+from mbta import stations
+from uberpy import Uber
+from google.directions import GoogleDirections
 
 class Graph:
-    input_data = [Node('oak grove', 'mbta', Location('malden', 'ma')),
-                  Node('north station', 'mbta', Location('boston', 'ma'))]
-    
+    input_data = []
+    #uber = Uber('MuasbGEmW07jGkPZdpKJe9e-4YMNGVSEtoCMmgAE', 'TMRHMtGjNg6qbBxoitItOl9_6cAYkh2u', '9mRWqWlmZaarD_pYpw2vsipa_dB75DjispQsXMd_')
+    gd = GoogleDirections('AIzaSyDsJHHVlsQlSN4IquCMZBFKGcUGR0aZgCA')
+    for s in stations:
+        input_data.append(Node(s['name'], 'mbta', Location(s['coords'][0], s['coords'][1])))
     
     def __init__(self, location_A, location_B):
         self.A = Node('A', 'user', location_A) 
         self.B = Node('B', 'user', location_B)
         
-        self.uber_cost = self.get_uber_cost(2, 2)
+        self.uber_cost = self.get_uber_cost(location_A, location_B)
         self.uber_time = self.get_uber_time(location_A, location_B)
         pt_nodes = Graph.input_data
         my_graph = {}
@@ -40,7 +45,6 @@ class Graph:
                 if this['time_to_b'] < my_graph[that['destination'].location]['time_to_b'] :
                     this['node'].edges.remove(that)           
 
-
     def get_paths(self):
         all_paths = Queue.Queue()
         all_paths.put(Path([self.A]))
@@ -60,9 +64,13 @@ class Graph:
         return final_paths
     
     def get_uber_cost(self, A,B):
-        return randint(0,9)
+        #price = self.uber.get_price_estimate(A.latitude, A.longitude, B.latitude, B.longitude)
+        return 6
     
     def get_uber_time(self, A,B):
-        return randint(0,9)
+        #wait_time = self.uber.get_time_estimate(A.latitude, A.longitude, B.latitude, B.longitude)
+        res = self.gd.query('berlin','paris')
+        return res.distance
+        
     
-       
+    
