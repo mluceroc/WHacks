@@ -8,6 +8,10 @@
 <!--http://www.w3schools.com/jsref/prop_text_value.asp-->
 
 
+<!--(3) w3schools-->
+<!--Learned how to add labels to textfields-->
+<!--http://www.w3schools.com/tags/tag_label.asp-->
+
 <!DOCTYPE html>
 <html>
 
@@ -19,12 +23,21 @@
 
 <body>
 
-<h1>LOCATIONS</h1>
+<h1><a href="Homepage.html" alt="Link to homepage page">&lt</a> LOCATION <a href="Results.html" alt="Link to results page">&gt</a></h1>
 
     <div id="floating-panel">
+    
+      <div id = "startPkg">
+      <label for="Start Address: ">Start Address: </label>
       <input id="start" type="textbox" value="Sydney, NSW">
+      </div>
+      
+      <div id = "endPkg">
+      <label for="Destination: ">Destination: </label>
       <input id="end" type="textbox" value="Sydney, NSW">
-      <input id="submit" type="button" value="Geocode">
+      </div>
+      
+      <input id="submit" type="button" value="Search">
     </div>
     <div id="map"></div>
     <script>
@@ -70,6 +83,7 @@ console.log("start initMap()");
 
   });
   
+  //This code needs to be debugged
   var flightPlanCoordinates = [
     {lat: startLAT, lng: startLNG},
     {lat: endLAT, lng: endLNG}
@@ -85,6 +99,8 @@ console.log("start initMap()");
   });
 
   flightPath.setMap(map);
+  
+  //end of code that needs to be debugged
   
 }
 
