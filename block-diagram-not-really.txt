@@ -8,7 +8,7 @@
         b. Go through this list, set all ITEs containing it and another node in this 
             list to from 1 to 2, then remove it from the list
 3. Find all paths on the graph that cost less than *uber*
-    i. Recursive alg: to start, path =  {A}. After, node is next pathMarker in queue (?)
+    i. Recursive alg: to start, path =  {A}. After, node is next path ? in queue (?)
         (base case): node == B --> add path to list of final paths
         (else case): 
             a. get all of node's outbound edges
